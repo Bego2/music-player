@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music player</title>
+
+    <style>
+
+        /* Vamos a usar los class SOLO PARA CSS LOS IDS SOLO PARA JS */
+.Lista {
+
+}
+    </style>
+</head>
+
+
+
+
+
+<body>
+    <h1>Music Player</h1>
+    
+    <h2>Lista de Canciones</h2>
+    <div id="divCanciones" class="Lista"> </div>
+
+    <button id="btnTema3">Tema 3</button>
+
+    <div class="botones">
+        <button id="btnAnterior">Anterior</button>
+        <button id="btnPausa">Pausa</button>
+        <button id="btnPlay">Play</button>
+        <button id="btnSiguiente">Siguiente</button>
+    </div>
+
+
+    <script>
+      
+        const listaCanciones = ["Canción1", "Canción2", "Canción3", "Canción4", "Canción5"];
+        const listaArtistas = ["ArtistaI", "ArtistaII", "ArtistaIII", "ArtistaIV", "ArtistaV"];
+
+        const divCanciones = document.getElementById("divCanciones");
+
+
+        divCanciones.forEach ((cancion, idx)=>{
+            console.log(`${cancion} - id: ${idx}`)
+            divCanciones.innerHTML += `<div class="divCanciones" ${cancion} <br> ${idx} </div>`;
+        });
+
+
+
+
+
+
+
+
+        // const listaCanciones = document.querySelector(".listaCanciones");
+
+
+
+
+
+
+
+
+        // let resultado = "";
+        // for (let i = 0; i < canciones.length; i++) {
+        //     console.log(canciones[i]);
+
+
+        // listaCanciones.innerHTML =
+        //     `<h1>${resultado}</h1>La canción es <b>${canciones}</b> 
+        // y los artistas <b>${artistas}</b>.`;
+        // }
+
+        // for (let i = 0; i < artistas.length; i++) {
+        //     console.log(artistas[i]);
+        // }
+
+
+    </script>
+
+</body>
+
+</html>
