@@ -1,6 +1,6 @@
 # music-player
 
-SOLO 1 y 2 mostrar en consola
+
 1. Crear un array con 5 canciones, recorrer el array y mostrar en consola cada canción.
 2. Crear un array con 5 artistas que correspondan a cada canción del primer array.
 

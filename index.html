@@ -1,86 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Music player</title>
 
     <style>
-
-        /* Vamos a usar los class SOLO PARA CSS LOS IDS SOLO PARA JS */
-.Lista {
-
-}
+      /* Vamos a usar los class SOLO PARA CSS LOS IDS SOLO PARA JS */
+      .Lista {
+        border: 1px;
+      }
     </style>
-</head>
+  </head>
 
-
-
-
-
-<body>
+  <body>
     <h1>Music Player</h1>
-    
+
     <h2>Lista de Canciones</h2>
-    <div id="divCanciones" class="Lista"> </div>
+    <div id="divCanciones" class="Lista"></div>
 
     <button id="btnTema3">Tema 3</button>
 
-    <div class="botones">
-        <button id="btnAnterior">Anterior</button>
-        <button id="btnPausa">Pausa</button>
-        <button id="btnPlay">Play</button>
-        <button id="btnSiguiente">Siguiente</button>
+    <div class="btnsMenu">
+      <button id="btnAnterior">Anterior</button>
+      <button id="btnPausa">Pausa</button>
+      <button id="btnPlay">Play</button>
+      <button id="btnSiguiente">Siguiente</button>
     </div>
 
-
     <script>
-      
-        const listaCanciones = ["Canción1", "Canción2", "Canción3", "Canción4", "Canción5"];
-        const listaArtistas = ["ArtistaI", "ArtistaII", "ArtistaIII", "ArtistaIV", "ArtistaV"];
+      const listaCanciones = [
+        "Canción1",
+        "Canción2",
+        "Canción3",
+        "Canción4",
+        "Canción5",
+      ];
+      const listaArtistas = [
+        "ArtistaI",
+        "ArtistaII",
+        "ArtistaIII",
+        "ArtistaIV",
+        "ArtistaV",
+      ];
 
-        const divCanciones = document.getElementById("divCanciones");
+      const divCanciones = document.getElementById("divCanciones");
+      const btnTema3 = document.getElementById("btnTema3");
 
+      listaCanciones.forEach((cancion, idx) => {
+        const artista = listaArtistas[idx];
+        divCanciones.innerHTML += `<div class="divCanciones"> ${cancion} - ${artista}</div>`;
+      });
 
-        divCanciones.forEach ((cancion, idx)=>{
-            console.log(`${cancion} - id: ${idx}`)
-            divCanciones.innerHTML += `<div class="divCanciones" ${cancion} <br> ${idx} </div>`;
-        });
-
-
-
-
-
-
-
-
-        // const listaCanciones = document.querySelector(".listaCanciones");
-
-
-
-
-
-
-
-
-        // let resultado = "";
-        // for (let i = 0; i < canciones.length; i++) {
-        //     console.log(canciones[i]);
+      btnTema3.addEventListener("click", () => {
+        console.log(listaCanciones[2]);
+      });
 
 
-        // listaCanciones.innerHTML =
-        //     `<h1>${resultado}</h1>La canción es <b>${canciones}</b> 
-        // y los artistas <b>${artistas}</b>.`;
-        // }
+      divCanciones.forEach((div) => {
+        div.addEventListener('click', (event) => {
+            console.log(event.target.id); });
+      });
 
-        // for (let i = 0; i < artistas.length; i++) {
-        //     console.log(artistas[i]);
-        // }
+
+      document.addEventListener('click', (event) => {
+    console.log(event.target.id);
+});
+      /**Este codigo lo que hace es 
+       * (1) Escuchar si alguien clicka en alguna parte del documento
+       * (2) La información de ese click se guarda en el objeto "event" 
+       * (3) Event.target nos dice a QUIEN afectó en el evento
+       * (4) Target.id Nos dice el ID de a quien afectó el evento 
+       * En definitiva (event: qué) (target: quién) (id: cómo se llama para encontrarle) 
+       * document.addEventListener('click', (event) => {
+    console.log(event.target.id); });
+      */
 
 
     </script>
-
-</body>
-
+  </body>
 </html>
