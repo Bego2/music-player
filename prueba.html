@@ -1,0 +1,103 @@
+<script> 
+
+const listaCanciones = [
+  "Harvest sky",
+  "Normal",
+  "Romero Santo",
+  "Barro",
+  "Winter Baby",
+];
+const listaArtistas = [
+  "Oklou",
+  "Carolina Durante",
+  "Judeline",
+  "Duki",
+  "070",
+];
+
+const divListaCanciones = document.getElementById("divListaCanciones");
+const divPlayingSong = document.getElementById("playingSong");
+
+// Generar la lista de canciones
+listaCanciones.forEach((cancion, idx) => {
+  const artista = listaArtistas[idx];
+  divListaCanciones.innerHTML += `<div class="song" data-index="${idx}">${idx + 1}. ${cancion} <br> ${artista}</div>`;
+});
+
+// Obtener todos los elementos con la clase "song"
+const divsCanciones = document.querySelectorAll(".song");
+
+divsCanciones.forEach(divCancion => {
+  divCancion.addEventListener("click", () => {
+    const index = divCancion.dataset.index;
+    const song = listaCanciones[index];
+    const artist = listaArtistas[index];
+
+    divPlayingSong.innerHTML = `<div>Canción: ${song}<br>Artista: ${artist}</div>`;
+  });
+});
+
+// Ejemplo de cómo agregar funcionalidad a los botones de control (a completar)
+const btnPausa = document.getElementById("btnPausa");
+btnPausa.addEventListener("click", () => {
+  // Aquí iría la lógica para pausar la reproducción
+  console.log("Pausar reproducción");
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+const btnTema3 = document.getElementById("btnTema3");
+
+const divListaCanciones = document.getElementById("divListaCanciones");
+
+const divsCanciones = document.querySelectorAll(".Lista-cancion");
+const divPlayingSong = document.getElementById("playingSong");
+
+// Generar lista de canciones
+
+listaCanciones.forEach((cancion, idx) => {
+  const artista = listaArtistas[idx];
+  const song = listaCanciones[idx];
+
+  divListaCanciones.innerHTML += ` <div id="song_${idx} class="Lista-cancion"> 
+     ${idx + 1}. ${song} <br> ${artista}</div>`;
+});
+
+divsCanciones.forEach((divCancion, i) => {
+  divCancion.addEventListener("click", () => {
+    const song = listaCanciones[i];
+    const artist = listaArtistas[i];
+    console.log("Artista: " + artist + " canción: " + song);
+
+    divPlayingSong.innerHTML = `<div> canción: ${song} <br> canción: ${artist}<
+      </div>`;
+  });
+});
+
+btnTema3.addEventListener("click", () => {
+  console.log("Canción: ", listaCanciones[2]);
+  console.log(`Artista: ${listaArtistas[2]}`);
+});
+
+//Ejercicio 5
+
+/**Este codigo lo que hace es
+ * (1) Escuchar si alguien clicka en alguna parte del documento
+ * (2) La información de ese click se guarda en el objeto "event"
+ * (3) Event.target nos dice a QUIEN afectó en el evento
+ * (4) Target.id Nos dice el ID de a quien afectó el evento
+ * En definitiva (event: qué) (target: quién) (id: cómo se llama para encontrarle)  */
+// document.addEventListener("click", (event) => {
+//   console.log(event.target.id);
+// });
+
+// Ejercicio 6
+// Busca todos los divs con class Lista-cancion

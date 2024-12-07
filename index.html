@@ -6,10 +6,37 @@
     <title>Music player</title>
 
     <style>
+
       /* Vamos a usar los class SOLO PARA CSS LOS IDS SOLO PARA JS */
-      .Lista {
-        border: 1px solid gray;
-        padding: 5px;
+      * {
+        box-sizing: border-box;
+        font-family: poppins;
+        color:  rgb(1, 13, 95);;
+      }
+   
+
+      .Lista-cancion {
+        border: 1px solid rgb(203, 0, 0);
+        padding: 10px;
+
+      }
+
+      .botones {
+        margin-top: 1.3rem;
+      }
+
+      .btn {
+        background-color: rgb(1, 13, 95);
+        color: aqua;
+        padding: 10px;
+       
+        border-radius: 20px;
+        border: 0;
+      }
+      
+      .btnT3 {
+        background-color: aqua;
+        color: rgb(1, 13, 95); 
       }
     </style>
   </head>
@@ -17,24 +44,24 @@
   <body>
     <h1>Music Player</h1>
 
+    <!-- Lista de canciones -->
     <h2>Lista de Canciones</h2>
-
     <div id="divListaCanciones" class="Lista-cancion"></div>
 
-    <button id="btnTema3">Tema 3</button>
-
+    <!-- Canción actual -->
     <h3>Canción reproduciéndose</h3>
+    <div id="playingSong"></div>
 
+    <!-- Botones -->
+     <div class="botones">
+    <button id="btnAnterior" class="btn">Anterior</button>
+    <button id="btnPausa" class="btn">Pausa</button>
+    <button id="btnPlay" class="btn">Play</button>
+    <button id="btnSiguiente" class="btn">Siguiente</button>
+    <button id="btnTema3" class="btn btnT3">Tema 3</button>
+  </div>
 
-    <div id="playingSong"> </div>
-
-    
-    <div class="btnsMenu">
-      <button id="btnAnterior">Anterior</button>
-      <button id="btnPausa">Pausa</button>
-      <button id="btnPlay">Play</button>
-      <button id="btnSiguiente">Siguiente</button>
-    </div>
+  
 
     <script>
       const listaCanciones = [
@@ -52,15 +79,30 @@
         "070",
       ];
 
-      const divListaCanciones = document.getElementById("divListaCanciones");
       const btnTema3 = document.getElementById("btnTema3");
 
-      listaCanciones.forEach((cancion, idx) => {
-        const artista = listaArtistas[idx];
-        const song = listaCanciones[idx];
+      const divListaCanciones = document.getElementById("divListaCanciones");
 
-        divListaCanciones.innerHTML += ` <div id="song_${idx} class="Lista-cancion"> 
-           ${idx+1}. ${song} <br> ${artista}</div>`;
+      const divPlayingSong = document.getElementById("playingSong");
+
+/** Este bucle for each es para nuestra lista de canciones */
+
+listaCanciones.forEach((cancion, idx) => {
+        const artista = listaArtistas[idx];
+        divListaCanciones.innerHTML += `<div id="song_${idx}" class="Lista-cancion"> <b>
+     ${idx + 1}. ${cancion}</b> <br> ${artista}</div>`;
+      });
+
+/** Este bucle for Each detecta qué canción ha sido clickada y la muestra en pantalla */
+      const divsCanciones = document.querySelectorAll(".Lista-cancion");
+      divsCanciones.forEach((divCancion, i) => {
+        divCancion.addEventListener("click", (event) => {
+          const song = listaCanciones[i];
+          const artist = listaArtistas[i];
+          console.log("Artista: " + artist + " canción: " + song);
+
+          divPlayingSong.innerHTML = `<div>Canción: ${song} <br> Artista: ${artist}</div>`;
+        });
       });
 
       btnTema3.addEventListener("click", () => {
@@ -70,39 +112,18 @@
 
       //Ejercicio 5
 
-      /**Este codigo lo que hace es 
+      /**Este codigo lo que hace es
        * (1) Escuchar si alguien clicka en alguna parte del documento
-       * (2) La información de ese click se guarda en el objeto "event" 
+       * (2) La información de ese click se guarda en el objeto "event"
        * (3) Event.target nos dice a QUIEN afectó en el evento
-       * (4) Target.id Nos dice el ID de a quien afectó el evento 
+       * (4) Target.id Nos dice el ID de a quien afectó el evento
        * En definitiva (event: qué) (target: quién) (id: cómo se llama para encontrarle)  */
       // document.addEventListener("click", (event) => {
       //   console.log(event.target.id);
       // });
 
-
-      // Ejercicio 6 
-      // Busca todos los divs con class Lista-cancion  
-
-      const divsCanciones = document.querySelectorAll(".Lista-cancion");
-      const divPlayingSong = document.getElementById("#playingSong")
-
-
-      divsCanciones.forEach ((divCancion, i ) => {
-
-        divCancion.addEventListener("click", (event) => {
-            const song = listaCanciones[i]; 
-            const artist = listaArtistas[i]; 
-            console.log ("Artista: "+artist+ " canción: "+song);
-
-
-            divPlayingSong.innerHTML = `<div> canción: ${song} <br> canción: ${artist}<
-            </div>`; 
-        });
-
-      });
-
-
+      // Ejercicio 6
+      // Busca todos los divs con class Lista-cancion
     </script>
   </body>
 </html>
