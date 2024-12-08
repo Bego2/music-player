@@ -6,24 +6,28 @@
     <title>Music player</title>
 
     <style>
-
       /* Vamos a usar los class SOLO PARA CSS LOS IDS SOLO PARA JS */
       * {
         box-sizing: border-box;
         font-family: poppins;
-        color:  rgb(1, 13, 95);;
+        color: rgb(1, 13, 95);
       }
-   
 
       .Lista-cancion {
         padding: 10px;
         border: 1px solid rgb(203, 0, 0);
       }
 
-      .Img-canciones {
-
+      .Actual-song {
+        display: flex;
+        flex-direction: column;
       }
-      
+
+      .Img-song {
+        width: 12rem;
+        height: 12rem;
+      }
+
       .botones {
         margin-top: 1.3rem;
       }
@@ -32,16 +36,15 @@
         background-color: rgb(1, 13, 95);
         color: aqua;
         padding: 10px;
-       
+
         border-radius: 20px;
         border: 0;
         cursor: pointer;
       }
-      
+
       .btnT3 {
         background-color: aqua;
-        color: rgb(1, 13, 95); 
-       
+        color: rgb(1, 13, 95);
       }
     </style>
   </head>
@@ -52,7 +55,7 @@
     <!-- Lista de canciones -->
     <h2>Lista de Canciones</h2>
     <div id="divListaCanciones" class="Lista">
-          <!-- con javascript hemos creado 5 divs class="Lista-cancion"  -->
+      <!-- con javascript hemos creado 5 divs class="Lista-cancion"  -->
     </div>
 
     <!-- Canción actual -->
@@ -60,19 +63,16 @@
     <div id="playingSong"></div>
 
     <!-- Botones -->
-     <div class="botones">
-    <button id="btnAnterior" class="btn">Anterior</button>
-    <button id="btnPausa" class="btn">Pausa</button>
-    <button id="btnPlay" class="btn">Play</button>
-    <button id="btnSiguiente" class="btn">Siguiente</button>
-    <button id="btnTema3" class="btn btnT3">Tema 3</button>
-  </div>
-
-  
+    <div class="botones">
+      <button id="btnAnterior" class="btn">Anterior</button>
+      <button id="btnPausa" class="btn">Pausa</button>
+      <button id="btnPlay" class="btn">Play</button>
+      <button id="btnSiguiente" class="btn">Siguiente</button>
+      <button id="btnTema3" class="btn btnT3">Tema 3</button>
+    </div>
 
     <script>
-
-let idCancionActual = 0; //la variable mas importante de nuestro codigo
+      let idCancionActual = 0; //la variable mas importante de nuestro codigo
 
       const listaCanciones = [
         "Harvest sky",
@@ -90,85 +90,84 @@ let idCancionActual = 0; //la variable mas importante de nuestro codigo
       ];
 
       const infoCanciones = [
-        {img: "./images/oklou.webp", texto: "para conectar con la naturaleza",},
-        {img: "./images/carolina.webp", texto: "para transicionar un duelo",},
-        {img: "./images/judeline.webp", texto: "para cuando te rompen el corazón",},
-        {img: "./images/duki.webp", texto: "para activar tu poder",},
-        {img: "./images/070.webp", texto: "para viajar al pasado",}
-      ]
+        { img: "./img/oklou.webp", texto: "Para conectar con la naturaleza" },
+        { img: "./img/carolina.webp", texto: "Para transicionar un duelo" },
+        { img: "./img/judeline.webp", texto: "Para cuando te rompen el corazón",},
+        { img: "./img/duki.webp", texto: "Para activar tu poder" },
+        { img: "./img/070.webp", texto: "Para viajar al pasado" },
+      ];
 
       const btnTema3 = document.getElementById("btnTema3");
 
-// Este bucle genera nuestra lista de canciones
-const divListaCanciones = document.getElementById("divListaCanciones");
-const divPlayingSong = document.getElementById("playingSong");
+      // Este bucle genera nuestra lista de canciones
+      const divListaCanciones = document.getElementById("divListaCanciones");
+      const divPlayingSong = document.getElementById("playingSong");
 
-
-listaCanciones.forEach((cancion, idx) => {
+      listaCanciones.forEach((cancion, idx) => {
         console.log(`${cancion} - id ${idx}`);
         const song = listaCanciones[idx];
         const artist = listaArtistas[idx];
         const info = infoCanciones[idx];
 
-        // innerHTML  (+= para ir añadiendo las canciones) 
-        divListaCanciones.innerHTML += 
-        `<div id="song_${idx}" class="Lista-cancion"> 
-          <img src="${infoCanciones.img}" alt="${song} class="Img-canciones"> 
-          <b> ${idx + 1}. ${song}</b> <br> 
+        //innerHTML  (+= para ir añadiendo las canciones)
+
+        divListaCanciones.innerHTML += `<div id="song_${idx}" class="Lista-cancion"> 
+          <b> ${idx + 1}. ${cancion}</b> <br> 
           ${artist}</div>`;
       });
 
-  
-
-/** Este bucle muestra la canción clickada en pantalla */
-const divsCanciones = document.querySelectorAll(".Lista-cancion");
+      /** Este bucle muestra la canción clickada en pantalla */
+      const divsCanciones = document.querySelectorAll(".Lista-cancion");
 
       divsCanciones.forEach((divCancion, i) => {
         divCancion.addEventListener("click", (event) => {
-
           idCancionActual = i;
           imprimirReproduciendo();
         });
       });
 
-
-      
-// Clickando el boton 3 - Aparece en consola la cancion 3
+      // Clickando el boton 3 - Aparece en consola la cancion 3
       btnTema3.addEventListener("click", () => {
         console.log("Canción: ", listaCanciones[2]);
         console.log(`Artista: ${listaArtistas[2]}`);
 
         idCancionActual = 2;
-        imprimirReproduciendo(); // Romero santo 
-      });     
+        imprimirReproduciendo(); // Romero santo
+      });
 
-
-// Botones de siguiente y anterior para pasar de una cancion a otra,
+      // Botones de siguiente y anterior para pasar de una cancion a otra,
       const btnSiguiente = document.getElementById("btnSiguiente");
-      const btnAnterior = document.getElementById("btnAnterior"); 
- 
+      const btnAnterior = document.getElementById("btnAnterior");
 
-      btnSiguiente.addEventListener("click", ()=> {
-        idCancionActual = (idCancionActual < listaCanciones.length -1) ? idCancionActual +1 : 0; 
-                          // si la canción actual no es la última = avanza +1               / Si es la última: vuelve a cero 
+      btnSiguiente.addEventListener("click", () => {
+        idCancionActual =
+          idCancionActual < listaCanciones.length - 1 ? idCancionActual + 1 : 0;
+        // si la canción actual no es la última = avanza +1               / Si es la última: vuelve a cero
         imprimirReproduciendo();
       });
 
-
-      btnAnterior.addEventListener("click", ()=> {
-        idCancionActual = (idCancionActual > 0) ? idCancionActual -1                  : listaCanciones.length -1;
-                          // si la canción actual no es la primera = decrementa -1 /  Si es la primera: ve a la última 
+      btnAnterior.addEventListener("click", () => {
+        idCancionActual =
+          idCancionActual > 0 ? idCancionActual - 1 : listaCanciones.length - 1;
+        // si la canción actual no es la primera = decrementa -1 /  Si es la primera: ve a la última
         imprimirReproduciendo();
       });
 
       function imprimirReproduciendo() {
         const song = listaCanciones[idCancionActual];
-          const artist = listaArtistas[idCancionActual];
-          console.log("Artista: " + artist + " canción: " + song);
+        const artist = listaArtistas[idCancionActual];
+        const info = infoCanciones[idCancionActual];
+        console.log("Artista: " + artist + " canción: " + song);
 
-          divPlayingSong.innerHTML = `<div>Canción: ${song} <br> Artista: ${artist}</div>`;
+        divPlayingSong.innerHTML = `<div class="Actual-song">
+            <img class="Img-song" src="${info.img}" alt="${song}">
+
+          <b><medium>${idCancionActual + 1}. ${song}</b> 
+            Artista: ${artist} </medium> 
+            <small>${info.texto}</small>
+          </div>`;
       }
-      
+
       //Ejercicio 5
 
       /**Este codigo lo que hace es
@@ -182,8 +181,6 @@ const divsCanciones = document.querySelectorAll(".Lista-cancion");
         console.log(event.target.id);
       });
       */
-
-       
     </script>
   </body>
 </html>
