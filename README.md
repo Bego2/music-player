@@ -5,8 +5,42 @@
 2. Crear un array con 5 artistas que correspondan a cada canción del primer array.
 
 
-AQUI YA JS 
 3. Mostrar en un HTML un DIV por cada canción y artista generado con JS a partir de la información del array.
+
+```js
+
+// Desde un mismo array podemos y es lo util de todo esto, acceder a dos arrays, para ello hemos  
+
+// Hemos usado +=    significa agregar al final de la lista un nuevo elemento
+  const listaCanciones = [
+        "Harvest sky",
+        "Normal",
+        "Romero Santo",
+        "Barro",
+        "Winter Baby",
+      ];
+      const listaArtistas = [
+        "Oklou",
+        "Carolina Durante",
+        "Judeline",
+        "Duki",
+        "070",
+      ];
+
+listaCanciones.forEach((cancion, idx) => {
+        console.log(`${cancion} - id ${idx}`);
+
+        const song = listaCanciones[idx];
+        const artista = listaArtistas[idx];
+
+        // innerHTML
+        divListaCanciones.innerHTML += 
+        `<div id="song_${idx}" class="Lista-cancion"> 
+          <b> ${idx + 1}. ${cancion}</b> <br> 
+          ${artista}</div>`;
+      });
+
+```
 
 4. Crear un botón con el texto "Tema 3" que al hacer click muestre en consola el nombre de la canción y el artista de la canción que se encuentra en la posición 3 del array.
 
@@ -27,79 +61,3 @@ document.addEventListener('click', (event) => {
 
 
 
-  <body>
-    <h1>Music Player</h1>
-
-    <h2>Lista de Canciones</h2>
-
-    <div id="divListaCanciones" class="Lista-cancion"></div>
-
-    <button id="btnTema3">Tema 3</button>
-
-    <h3>Canción reproduciéndose</h3>
-
-
-    <div id="playingSong"> </div>
-
-    
-    <div class="btnsMenu">
-      <button id="btnAnterior">Anterior</button>
-      <button id="btnPausa">Pausa</button>
-      <button id="btnPlay">Play</button>
-      <button id="btnSiguiente">Siguiente</button>
-    </div>
-
-    <script>
-      const listaCanciones = [
-        "Harvest sky",
-        "Normal",
-        "Romero Santo",
-        "Barro",
-        "Winter Baby",
-      ];
-      const listaArtistas = [
-        "Oklou",
-        "Carolina Durante",
-        "Judeline",
-        "Duki",
-        "070",
-      ];
-
-      const divListaCanciones = document.getElementById("divListaCanciones");
-      const btnTema3 = document.getElementById("btnTema3");
-
-      listaCanciones.forEach((cancion, idx) => {
-        const artista = listaArtistas[idx];
-        const song = listaCanciones[idx];
-
-        divListaCanciones.innerHTML += ` <div id="song_${idx} class="Lista-cancion"> 
-           ${idx+1}. ${song} <br> ${artista}</div>`;
-      });
-
-      btnTema3.addEventListener("click", () => {
-        console.log("Canción: ", listaCanciones[2]);
-        console.log(`Artista: ${listaArtistas[2]}`);
-      });
-
-      //Ejercicio 5
-
-      // Ejercicio 6 
-      // Busca todos los divs con class Lista-cancion  
-
-      const divsCanciones = document.querySelectorAll(".Lista-cancion");
-      const divPlayingSong = document.getElementById("#playingSong")
-
-
-      divsCanciones.forEach ((divCancion, i ) => {
-
-        divCancion.addEventListener("click", (event) => {
-            const song = listaCanciones[i]; 
-            const artist = listaArtistas[i]; 
-            console.log ("Artista: "+artist+ " canción: "+song);
-
-
-            divPlayingSong.innerHTML = `<div> canción: ${song} <br> canción: ${artist}<
-            </div>`; 
-        });
-
-      });
