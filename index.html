@@ -20,6 +20,10 @@
         border: 1px solid rgb(203, 0, 0);
       }
 
+      .Img-canciones {
+
+      }
+      
       .botones {
         margin-top: 1.3rem;
       }
@@ -85,10 +89,17 @@ let idCancionActual = 0; //la variable mas importante de nuestro codigo
         "070",
       ];
 
+      const infoCanciones = [
+        {img: "./images/oklou.webp", texto: "para conectar con la naturaleza",},
+        {img: "./images/carolina.webp", texto: "para transicionar un duelo",},
+        {img: "./images/judeline.webp", texto: "para cuando te rompen el corazón",},
+        {img: "./images/duki.webp", texto: "para activar tu poder",},
+        {img: "./images/070.webp", texto: "para viajar al pasado",}
+      ]
+
       const btnTema3 = document.getElementById("btnTema3");
 
 // Este bucle genera nuestra lista de canciones
-
 const divListaCanciones = document.getElementById("divListaCanciones");
 const divPlayingSong = document.getElementById("playingSong");
 
@@ -97,17 +108,19 @@ listaCanciones.forEach((cancion, idx) => {
         console.log(`${cancion} - id ${idx}`);
         const song = listaCanciones[idx];
         const artist = listaArtistas[idx];
+        const info = infoCanciones[idx];
 
         // innerHTML  (+= para ir añadiendo las canciones) 
         divListaCanciones.innerHTML += 
         `<div id="song_${idx}" class="Lista-cancion"> 
+          <img src="${infoCanciones.img}" alt="${song} class="Img-canciones"> 
           <b> ${idx + 1}. ${song}</b> <br> 
           ${artist}</div>`;
       });
 
   
 
-/** Este bucle for Each selecciona todos los divs con clase .Lista-cancion y la muestra en pantalla */
+/** Este bucle muestra la canción clickada en pantalla */
 const divsCanciones = document.querySelectorAll(".Lista-cancion");
 
       divsCanciones.forEach((divCancion, i) => {
@@ -115,13 +128,12 @@ const divsCanciones = document.querySelectorAll(".Lista-cancion");
 
           idCancionActual = i;
           imprimirReproduciendo();
-         
         });
       });
 
 
       
-  // Clickando el boton 3 - Aparece en consola la cancion 3
+// Clickando el boton 3 - Aparece en consola la cancion 3
       btnTema3.addEventListener("click", () => {
         console.log("Canción: ", listaCanciones[2]);
         console.log(`Artista: ${listaArtistas[2]}`);
@@ -131,18 +143,21 @@ const divsCanciones = document.querySelectorAll(".Lista-cancion");
       });     
 
 
+// Botones de siguiente y anterior para pasar de una cancion a otra,
       const btnSiguiente = document.getElementById("btnSiguiente");
       const btnAnterior = document.getElementById("btnAnterior"); 
  
 
       btnSiguiente.addEventListener("click", ()=> {
-        idCancionActual = (idCancionActual < listaCanciones.length -1) ? idCancionActual +1 : 0; // si la cancion actual tiene 
+        idCancionActual = (idCancionActual < listaCanciones.length -1) ? idCancionActual +1 : 0; 
+                          // si la canción actual no es la última = avanza +1               / Si es la última: vuelve a cero 
         imprimirReproduciendo();
       });
 
 
       btnAnterior.addEventListener("click", ()=> {
-        idCancionActual = (idCancionActual > 0) ? idCancionActual -1 : listaCanciones.length -1;
+        idCancionActual = (idCancionActual > 0) ? idCancionActual -1                  : listaCanciones.length -1;
+                          // si la canción actual no es la primera = decrementa -1 /  Si es la primera: ve a la última 
         imprimirReproduciendo();
       });
 
@@ -161,10 +176,12 @@ const divsCanciones = document.querySelectorAll(".Lista-cancion");
        * (2) La información de ese click se guarda en el objeto "event"
        * (3) Event.target nos dice a QUIEN afectó en el evento (a un div/a un button/etc)
        * (4) Target.id Nos dice el ID de a quien afectó el evento
-       * En definitiva (event: qué) (target: quién) (id: cómo se llama para encontrarle)  */
-      // document.addEventListener("click", (event) => {
-      //   console.log(event.target.id);
-      // });
+       * En definitiva (event: qué) (target: quién) (id: cómo se llama para encontrarle)  
+    
+        document.addEventListener("click", (event) => {
+        console.log(event.target.id);
+      });
+      */
 
        
     </script>
