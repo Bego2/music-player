@@ -6,7 +6,7 @@
     <title>Music player</title>
 
     <style>
-      /* Vamos a usar los class SOLO PARA CSS LOS IDS SOLO PARA JS */
+  
       * {
         box-sizing: border-box;
         font-family: poppins;
@@ -45,6 +45,9 @@
         border: 1px solid rgb(203, 0, 0);
       }
 
+      .Audio {
+        margin-top: 1REM;
+      }
       .Actual-song {
         display: flex;
         flex-direction: column;
@@ -84,40 +87,39 @@
     <h1 class="H1">Music Player</h1>
 
     <main class="Main">
-    <section class="Selector-Canciones"> 
-    <!-- Lista de canciones -->
-    <h2>Lista de Canciones</h2>
-    <div id="divListaCanciones" class="Lista">
-      <!-- con javascript hemos creado 5 divs class="Lista-cancion"  -->
-    </div>
-    </section>
-    <!-- Canción actual -->
 
-    <section class="Reproductor"> 
-    <h2>Canción reproduciéndose</h2>
-    <div id="playingSong"></div>
-
-    <!-- Botones -->
-    <div class="Botones">
-      <button id="btnAnterior" class="Btn">Anterior</button>
-      <button id="btnPausa" class="Btn CentroBtns">Pausa</button>
-      <button id="btnPlay" class="Btn CentroBtns">Play</button>
-      <button id="btnSiguiente" class="Btn">Siguiente</button>
-      <button id="btnTema3" class="Btn btnT3">Tema 3</button>
-    </div>
-
-    <!-- Etiqueta HTML de audio -->
-    <audio src="" autoplay controls></audio>
-
-    <!-- Barra de progreso -->
-
-    <div class="audioBar">
-      <div class="audioBarLine">  </div>
-    </div>
-  </section>
-</main>
-    <script>
+      <section class="Selector-Canciones"> 
       
+        <h2>Lista de Canciones</h2>
+        <div id="divListaCanciones" class="Lista">
+          <!-- con javascript hemos creado 5 divs class="Lista-cancion"  -->
+        </div>
+      </section>
+
+      <section class="Reproductor"> 
+        <h2>Canción reproduciéndose</h2>
+        <div id="playingSong"></div>
+
+          <!-- Etiqueta HTML de audio -->
+          <audio class= "Audio" src="" autoplay controls></audio>
+
+          <!-- Barra de progreso -->
+          <div class="audioBar">
+          <div class="audioBarLine"> </div>
+          </div>
+
+        <!-- Botones -->
+        <div class="Botones">
+          <button id="btnAnterior" class="Btn">Anterior</button>
+          <button id="btnPausa" class="Btn CentroBtns">Pausa</button>
+          <button id="btnPlay" class="Btn CentroBtns">Play</button>
+          <button id="btnSiguiente" class="Btn">Siguiente</button>
+          <button id="btnTema3" class="Btn btnT3">Tema 3</button>
+        </div>
+      </section>
+    </main>
+    
+<script>
 // _______________________________________________________
 //                La info de las canciones 
 // _______________________________________________________
@@ -234,13 +236,13 @@ btnTema3.addEventListener("click", () => {
 //             Función imprimirReproduciendo   
 // _______________________________________________________
 
- function imprimirReproduciendo() {
+function imprimirReproduciendo() {
         const song = listaCanciones[idCancionActual].título;
         const artist = listaCanciones[idCancionActual].artista;
         const descripcion = listaCanciones[idCancionActual].texto;
         const imagen = listaCanciones[idCancionActual].img;
        // ? const audio = listaCanciones[idCancionActual].url;
-     
+
         console.log("Artista: " + artist + " canción: " + song);
 
         
@@ -249,7 +251,7 @@ btnTema3.addEventListener("click", () => {
 
           <b><medium>${idCancionActual + 1}. ${song}</b> 
           Artista: ${artist} </medium> 
-          <small>${descripcion.texto}</small>
+          <small>${descripcion}</small>
           </div>`;
 
         audioPlayer.src = listaCanciones[idCancionActual].url;
@@ -257,8 +259,6 @@ btnTema3.addEventListener("click", () => {
 
       }
 
-     
-     
 //Ejercicio 5 
       /** document.addEventListener("click", (event) => {
           console.log(event.target.id);     });
