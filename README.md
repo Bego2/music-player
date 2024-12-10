@@ -57,6 +57,31 @@ document.addEventListener('click', (event) => {
 
 ```js
 
+// Opción más CLARA para hacer esto:
+// preguntar algo si es la última canción
+btnSig.addEventListener("click", () => {
+if (idCancionActual === lista_canciones.length - 1) {
+  // si es cierto, idCancion = 0
+  idCancionActual = 0;
+} else {
+  // si no es cierto, idCancion va a sumar 1
+  idCancionActual++;
+}
+// revisar que no me pase de la última canción (empiece por la primera)
+imprimirReproduciendo();
+
+});
+
+btnAnt.addEventListener("click", () => {
+// preguntar si estoy en la primera canción
+if (idCancionActual == 0) {
+  idCancionActual = lista_canciones.length - 1; // 4
+} else {
+  idCancionActual--;
+}
+});
+
+// OPCIÓN MÁ SINTETIZADA
 //listaCanciones.length -1 equivale a la posición de la última canción
   btnSiguiente.addEventListener("click", ()=> {
         idCancionActual = (idCancionActual < listaCanciones.length -1) ? idCancionActual +1 : 0; 
@@ -69,6 +94,9 @@ document.addEventListener('click', (event) => {
                           // si la canción actual no es la primera = decrementa -1 /  Si es la primera: ve a la última 
         imprimirReproduciendo();
       });
+
+
+// 
 
 ```
 

@@ -11,6 +11,33 @@
         box-sizing: border-box;
         font-family: poppins;
         color: rgb(1, 13, 95);
+        padding: 0;
+        margin: 0;
+      }
+
+      .Body {
+        margin: 1rem;
+      }
+
+      .Main {
+        display: flex;
+        flex-direction: row;
+        gap: 4rem;
+        margin-top: 2rem;
+      }
+
+      .Selector-Canciones { 
+      display: flex;
+      flex-direction: column;
+      }
+
+      .Reproductor {
+      display: flex;
+      flex-direction: column;
+      }
+
+      .H1 {
+        color: rgb(53, 67, 175);
       }
 
       .Lista-cancion {
@@ -28,11 +55,11 @@
         height: 12rem;
       }
 
-      .botones {
-        margin-top: 1.3rem;
+      .Botones {
+        margin: 1.3rem 0rem;
       }
 
-      .btn {
+      .Btn {
         background-color: rgb(1, 13, 95);
         color: aqua;
         padding: 10px;
@@ -42,6 +69,10 @@
         cursor: pointer;
       }
 
+      .CentroBtns {
+        background-color: rgb(0, 24, 177);
+      }
+
       .btnT3 {
         background-color: aqua;
         color: rgb(1, 13, 95);
@@ -49,76 +80,99 @@
     </style>
   </head>
 
-  <body>
-    <h1>Music Player</h1>
+  <body class="Body">
+    <h1 class="H1">Music Player</h1>
 
+    <main class="Main">
+    <section class="Selector-Canciones"> 
     <!-- Lista de canciones -->
     <h2>Lista de Canciones</h2>
     <div id="divListaCanciones" class="Lista">
       <!-- con javascript hemos creado 5 divs class="Lista-cancion"  -->
     </div>
-
+    </section>
     <!-- Canción actual -->
-    <h3>Canción reproduciéndose</h3>
+
+    <section class="Reproductor"> 
+    <h2>Canción reproduciéndose</h2>
     <div id="playingSong"></div>
 
     <!-- Botones -->
-    <div class="botones">
-      <button id="btnAnterior" class="btn">Anterior</button>
-      <button id="btnPausa" class="btn">Pausa</button>
-      <button id="btnPlay" class="btn">Play</button>
-      <button id="btnSiguiente" class="btn">Siguiente</button>
-      <button id="btnTema3" class="btn btnT3">Tema 3</button>
+    <div class="Botones">
+      <button id="btnAnterior" class="Btn">Anterior</button>
+      <button id="btnPausa" class="Btn CentroBtns">Pausa</button>
+      <button id="btnPlay" class="Btn CentroBtns">Play</button>
+      <button id="btnSiguiente" class="Btn">Siguiente</button>
+      <button id="btnTema3" class="Btn btnT3">Tema 3</button>
     </div>
 
+    <!-- Etiqueta HTML de audio -->
+    <audio src="" autoplay controls></audio>
+
+    <!-- Barra de progreso -->
+
+    <div class="audioBar">
+      <div class="audioBarLine">  </div>
+    </div>
+  </section>
+</main>
     <script>
-      let idCancionActual = 0; //la variable mas importante de nuestro codigo
-
+      
+// _______________________________________________________
+//                La info de las canciones 
+// _______________________________________________________
       const listaCanciones = [
-        "Harvest sky",
-        "Normal",
-        "Romero Santo",
-        "Barro",
-        "Winter Baby",
-      ];
-      const listaArtistas = [
-        "Oklou",
-        "Carolina Durante",
-        "Judeline",
-        "Duki",
-        "070",
+        { artista:"Oklou", título: "Harvest sky", img: "./img/oklou.webp", texto: "Para conectar con la naturaleza", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},
+
+        { artista:"Carolina Durante", título: "Normal", img: "./img/carolina.webp", texto: "Para transicionar un duelo", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},
+
+        { artista:"Romero Santo", título: "Judeline", img: "./img/judeline.webp", texto: "Para cuando te rompen el corazón", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},
+
+        { artista:"Duki", título: "Barro", img: "./img/duki.webp", texto: "Para activar tu poder" , url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
+
+        { artista:"070", título: "Winter Baby", img: "./img/070.webp", texto: "Para viajar al pasado" , url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" },
       ];
 
-      const infoCanciones = [
-        { img: "./img/oklou.webp", texto: "Para conectar con la naturaleza" },
-        { img: "./img/carolina.webp", texto: "Para transicionar un duelo" },
-        { img: "./img/judeline.webp", texto: "Para cuando te rompen el corazón",},
-        { img: "./img/duki.webp", texto: "Para activar tu poder" },
-        { img: "./img/070.webp", texto: "Para viajar al pasado" },
-      ];
+
+// _______________________________________________________
+//                Constantes y variables   
+// _______________________________________________________
+      const audioPlayer = document.querySelector("audio");
 
       const btnTema3 = document.getElementById("btnTema3");
+      const btnSiguiente = document.getElementById("btnSiguiente");
+      const btnAnterior = document.getElementById("btnAnterior");
+      const btnPausa = document.getElementById("btnPausa");
+      const btnPlay = document.getElementById("btnPlay");
 
-      // Este bucle genera nuestra lista de canciones
       const divListaCanciones = document.getElementById("divListaCanciones");
       const divPlayingSong = document.getElementById("playingSong");
 
+      let idCancionActual = 0; //la variable mas importante de nuestro codigo
+
+
+// _______________________________________________________
+//                Bucles    
+// _______________________________________________________
+
+    // (1) Muestra la lista de canciones
       listaCanciones.forEach((cancion, idx) => {
         console.log(`${cancion} - id ${idx}`);
-        const song = listaCanciones[idx];
-        const artist = listaArtistas[idx];
-        const info = infoCanciones[idx];
+        const song = listaCanciones[idx].título;
+        const artist = listaCanciones[idx].artista;
+        const descripcion = listaCanciones[idx].texto;
+        const audio = listaCanciones[idx].url;
 
-        //innerHTML  (+= para ir añadiendo las canciones)
-
+      //innerHTML  (+= para ir añadiendo las canciones)
         divListaCanciones.innerHTML += `<div id="song_${idx}" class="Lista-cancion"> 
-          <b> ${idx + 1}. ${cancion}</b> <br> 
+          <b> ${idx + 1}. ${song}</b> <br> 
           ${artist}</div>`;
       });
 
-      /** Este bucle muestra la canción clickada en pantalla */
-      const divsCanciones = document.querySelectorAll(".Lista-cancion");
+    // (2.0) Al haber creado con innerHTML una class .Lista-cancion, es ahora y no antes cuando usamos el querySelector   
+    const divsCanciones = document.querySelectorAll(".Lista-cancion");
 
+    // (2.1) Muestra la canción clickada en pantalla
       divsCanciones.forEach((divCancion, i) => {
         divCancion.addEventListener("click", (event) => {
           idCancionActual = i;
@@ -126,60 +180,95 @@
         });
       });
 
-      // Clickando el boton 3 - Aparece en consola la cancion 3
-      btnTema3.addEventListener("click", () => {
+
+
+// _______________________________________________________
+//             Botones
+// _______________________________________________________
+
+// Siguiente & Anterior
+// preguntar algo si es la última canción
+btnSiguiente.addEventListener("click", () => {
+if (idCancionActual === listaCanciones.length - 1) {
+  // si es cierto, idCancion = 0
+  idCancionActual = 0;
+} else {
+  // si no es cierto, idCancion va a sumar 1
+  idCancionActual++;
+}
+// revisar que no me pase de la última canción (empiece por la primera)
+imprimirReproduciendo();
+
+});
+
+btnAnterior.addEventListener("click", () => {
+// preguntar si estoy en la primera canción
+if (idCancionActual == 0) {
+  idCancionActual = listaCanciones.length - 1; // 4
+} else {
+  idCancionActual--;
+}
+imprimirReproduciendo();
+});
+
+// Play y Pausa
+btnPlay.addEventListener("click", () => {
+  audioPlayer.play();
+});
+
+btnPausa.addEventListener("click", () => {
+  audioPlayer.pause();
+});
+      
+// Clickando el boton 3 - Aparece en consola la cancion 3
+btnTema3.addEventListener("click", () => {
         console.log("Canción: ", listaCanciones[2]);
-        console.log(`Artista: ${listaArtistas[2]}`);
+        console.log(`Artista: ${listaCanciones[2]}`);
 
         idCancionActual = 2;
         imprimirReproduciendo(); // Romero santo
       });
 
-      // Botones de siguiente y anterior para pasar de una cancion a otra,
-      const btnSiguiente = document.getElementById("btnSiguiente");
-      const btnAnterior = document.getElementById("btnAnterior");
+      
+// _______________________________________________________
+//             Función imprimirReproduciendo   
+// _______________________________________________________
 
-      btnSiguiente.addEventListener("click", () => {
-        idCancionActual =
-          idCancionActual < listaCanciones.length - 1 ? idCancionActual + 1 : 0;
-        // si la canción actual no es la última = avanza +1               / Si es la última: vuelve a cero
-        imprimirReproduciendo();
-      });
-
-      btnAnterior.addEventListener("click", () => {
-        idCancionActual =
-          idCancionActual > 0 ? idCancionActual - 1 : listaCanciones.length - 1;
-        // si la canción actual no es la primera = decrementa -1 /  Si es la primera: ve a la última
-        imprimirReproduciendo();
-      });
-
-      function imprimirReproduciendo() {
-        const song = listaCanciones[idCancionActual];
-        const artist = listaArtistas[idCancionActual];
-        const info = infoCanciones[idCancionActual];
+ function imprimirReproduciendo() {
+        const song = listaCanciones[idCancionActual].título;
+        const artist = listaCanciones[idCancionActual].artista;
+        const descripcion = listaCanciones[idCancionActual].texto;
+        const imagen = listaCanciones[idCancionActual].img;
+       // ? const audio = listaCanciones[idCancionActual].url;
+     
         console.log("Artista: " + artist + " canción: " + song);
 
+        
         divPlayingSong.innerHTML = `<div class="Actual-song">
-            <img class="Img-song" src="${info.img}" alt="${song}">
+            <img class="Img-song" src="${imagen}" alt="${song}">
 
           <b><medium>${idCancionActual + 1}. ${song}</b> 
-            Artista: ${artist} </medium> 
-            <small>${info.texto}</small>
+          Artista: ${artist} </medium> 
+          <small>${descripcion.texto}</small>
           </div>`;
+
+        audioPlayer.src = listaCanciones[idCancionActual].url;
+        audioPlayer.play();
+
       }
 
-      //Ejercicio 5
-
-      /**Este codigo lo que hace es
+     
+     
+//Ejercicio 5 
+      /** document.addEventListener("click", (event) => {
+          console.log(event.target.id);     });
+      
+      Este codigo lo que hace es:
        * (1) Escuchar si alguien clicka en alguna parte del documento
        * (2) La información de ese click se guarda en el objeto "event"
        * (3) Event.target nos dice a QUIEN afectó en el evento (a un div/a un button/etc)
        * (4) Target.id Nos dice el ID de a quien afectó el evento
        * En definitiva (event: qué) (target: quién) (id: cómo se llama para encontrarle)  
-    
-        document.addEventListener("click", (event) => {
-        console.log(event.target.id);
-      });
       */
     </script>
   </body>
